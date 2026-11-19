@@ -1,0 +1,63 @@
+
+<aside class="sidebar">
+
+  <div class="sidebar-brand">
+    <div class="brand-icon">A</div>
+
+    <div class="brand-info">
+      <h2>Angular Docs</h2>
+      <span>Learning Portal</span>
+    </div>
+  </div>
+
+  <div class="sidebar-menu">
+    <div class="menu-label">ANGULAR CONCEPTS</div>
+
+    @for (menu of menuItems; track menu.title) {
+      <div class="menu-group">
+
+        @if (menu.children?.length) {
+          <button
+            class="menu-parent"
+            [class.expanded]="isExpanded(menu.title)"
+            (click)="toggleMenu(menu.title)"
+          >
+            <span>{{ menu.title }}</span>
+            <span class="chevron">
+              {{ isExpanded(menu.title) ? '⌄' : '›' }}
+            </span>
+          </button>
+
+          @if (isExpanded(menu.title)) {
+            <div class="submenu">
+              @for (child of menu.children; track child.title) {
+                <a
+                  [routerLink]="child.route"
+                  routerLinkActive="active"
+                  class="submenu-item"
+                >
+                  {{ child.title }}
+                </a>
+              }
+            </div>
+          }
+        } @else {
+          <a
+            [routerLink]="menu.route"
+            routerLinkActive="active"
+            class="menu-link"
+          >
+            {{ menu.title }}
+          </a>
+        }
+
+      </div>
+    }
+  </div>
+
+  <div class="sidebar-footer">
+    Angular Learning Portal
+    <span>Version 1.0</span>
+  </div>
+
+</aside>
